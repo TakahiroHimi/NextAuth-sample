@@ -13,7 +13,7 @@ export default function Page() {
       )}
       {session && (
         <>
-          Signed in as {session.user.email} <br />
+          Signed in as {session.user.email} {session.accessToken} <br />
           <button onClick={() => signOut()}>Sign out</button>
         </>
       )}
