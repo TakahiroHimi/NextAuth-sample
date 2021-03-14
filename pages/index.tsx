@@ -3,11 +3,16 @@ import client from "../apollo-client";
 import {
   GetRepositoryDocument,
   GetRepositoryQueryVariables,
-  GetRepositoryQueryResult
-} from "../graphql/queries/types";
+  Repository,
+} from "../graphql/queries/types.d";
 
-export default function Page() {
+type Props = {
+  repository: Repository;
+};
+
+export default function Page({ repository }: Props) {
   const [session, loading] = useSession();
+  console.log("Client", repository?.issues);
 
   return (
     <>
@@ -23,11 +28,16 @@ export default function Page() {
           <button onClick={() => signOut()}>Sign out</button>
         </>
       )}
+
+      {repository?.name}
+      {/* {repository?.issues.edges?.map((issue) => {
+        return issue?.node?.title;
+      })} */}
     </>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { data: data } = await client.query({
     query: GetRepositoryDocument,
     variables: {
@@ -37,9 +47,11 @@ export async function getStaticProps() {
     } as GetRepositoryQueryVariables,
   });
 
+  console.log("SSR", JSON.stringify(data));
+
   return {
     props: {
-      repository: data as GetRepositoryQueryResult,
+      repository: data as Repository,
     },
   };
 }
