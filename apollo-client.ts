@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 const client = new ApolloClient({
   uri: "https://api.github.com/graphql",
   headers: {
-    'Authorization': process.env.GITHUB_PERSONAL_ACCESSTOKEN ?? "",
+    "Authorization": "bearer " + process.env.GITHUB_PERSONAL_ACCESSTOKEN,
   },
   cache: new InMemoryCache(),
 });
