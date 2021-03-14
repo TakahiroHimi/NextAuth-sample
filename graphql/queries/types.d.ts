@@ -19591,8 +19591,9 @@ export type ViewerHovercardContext = HovercardContext & {
 
 
 export type GetRepositoryQueryVariables = Exact<{
-  name: Scalars['String'];
-  owner: Scalars['String'];
+  repositoryOwner: Scalars['String'];
+  repositoryName: Scalars['String'];
+  issuesFirst?: Maybe<Scalars['Int']>;
 }>;
 
 
@@ -19616,10 +19617,10 @@ export type GetRepositoryQuery = (
 
 
 export const GetRepositoryDocument = gql`
-    query getRepository($name: String!, $owner: String!) {
-  repository(name: $name, owner: $owner) {
+    query GetRepository($repositoryOwner: String!, $repositoryName: String!, $issuesFirst: Int) {
+  repository(owner: $repositoryOwner, name: $repositoryName) {
     name
-    issues(first: 10) {
+    issues(first: $issuesFirst) {
       edges {
         node {
           id
@@ -19643,8 +19644,9 @@ export const GetRepositoryDocument = gql`
  * @example
  * const { data, loading, error } = useGetRepositoryQuery({
  *   variables: {
- *      name: // value for 'name'
- *      owner: // value for 'owner'
+ *      repositoryOwner: // value for 'repositoryOwner'
+ *      repositoryName: // value for 'repositoryName'
+ *      issuesFirst: // value for 'issuesFirst'
  *   },
  * });
  */
