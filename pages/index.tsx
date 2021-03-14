@@ -1,4 +1,10 @@
 import { signIn, signOut, useSession } from "next-auth/client";
+import client from "../apollo-client";
+import {
+  GetRepositoryDocument,
+  GetRepositoryQueryVariables,
+  GetRepositoryQueryResult
+} from "../graphql/queries/types";
 
 export default function Page() {
   const [session, loading] = useSession();
@@ -19,4 +25,21 @@ export default function Page() {
       )}
     </>
   );
+}
+
+export async function getStaticProps() {
+  const { data: data } = await client.query({
+    query: GetRepositoryDocument,
+    variables: {
+      repositoryOwner: "octocat",
+      repositoryName: "Hello-World",
+      issuesFirst: 10,
+    } as GetRepositoryQueryVariables,
+  });
+
+  return {
+    props: {
+      repository: data as GetRepositoryQueryResult,
+    },
+  };
 }
