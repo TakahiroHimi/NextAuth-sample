@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/client";
 
-export default function Page() {
+const Page = () => {
   const [session, loading] = useSession();
 
   return (
@@ -27,4 +27,6 @@ export default function Page() {
       )}
     </>
   );
-}
+};
+
+export default Page;
