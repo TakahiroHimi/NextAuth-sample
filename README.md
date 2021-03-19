@@ -1,5 +1,7 @@
 # NextAuth を使用してアクセストークンを取得するサンプル
 
+- 対象 Provider は GitHub
+
 <br />
 
 ## 実行手順
