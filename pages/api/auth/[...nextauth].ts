@@ -20,7 +20,7 @@ export default NextAuth({
      *                           Return `false` to deny access
      *                           Return `string` to redirect to (eg.: "/unauthorized")
      */
-    async signIn(user, account, profile) {
+    async signIn(_user, _account, _profile) {
       console.log("signIn!");
       return true;
     },
@@ -41,7 +41,7 @@ export default NextAuth({
      * @param  {boolean} isNewUser True if new user (only available on sign in)
      * @return {object}            JSON Web Token that will be saved
      */
-    async jwt(token, user, account, profile, isNewUser) {
+    async jwt(token, _user, account, _profile, _isNewUser) {
       console.log("jwt!");
       // Add access_token to the token right after signin
       if (account?.accessToken) {
