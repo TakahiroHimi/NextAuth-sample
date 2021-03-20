@@ -33,6 +33,8 @@ export default NextAuth({
       console.log("redirect!");
       console.log(process.env.GITHUB_ID);
       console.log(process.env.GITHUB_SECRET);
+      console.log(url);
+      console.log(baseUrl);
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
     /**
