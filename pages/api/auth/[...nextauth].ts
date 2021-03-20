@@ -31,6 +31,8 @@ export default NextAuth({
      */
     async redirect(url, baseUrl) {
       console.log("redirect!");
+      console.log(process.env.GITHUB_ID);
+      console.log(process.env.GITHUB_SECRET);
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
     /**
