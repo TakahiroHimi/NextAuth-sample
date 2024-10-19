@@ -1,7 +1,9 @@
-import { signIn, signOut, useSession } from "next-auth/client";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Page = () => {
-  const [session, loading] = useSession();
+  // const [session, loading] = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
 
   return (
     <>
@@ -17,11 +19,11 @@ const Page = () => {
           )}
         </>
       )}
-      {session && (
+      {session?.user && (
         <>
-          Signed in as <img src={session.user.image ?? ""} width="50px" />
-          　{session.user.name} <br />
-          AccessToken : {session.accessToken} <br />
+          Signed in as <img src={session.user.image ?? ""} width="50px" />　
+          {session.user.name} <br />
+          {/* AccessToken : {session.user} <br /> */}
           <button onClick={() => signOut()}>Sign out</button>
         </>
       )}
